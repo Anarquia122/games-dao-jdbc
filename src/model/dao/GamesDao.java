@@ -12,5 +12,5 @@ public interface GamesDao {
 	void deleteById(Integer id);
 	Games findById(Integer id);
 	List<Games> findAll();
-	List<Games> findByDepartment(Category category);
+	List<Games> findByCategory(Category category);
 }
