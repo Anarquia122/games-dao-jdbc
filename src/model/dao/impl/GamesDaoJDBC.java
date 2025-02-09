@@ -61,7 +61,7 @@ public class GamesDaoJDBC implements GamesDao {
 
 	@Override
 	public void update(Games obj) {
-PreparedStatement st = null;
+		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement(
