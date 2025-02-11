@@ -10,6 +10,7 @@ import java.util.List;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.CategoryDao;
 import model.entities.Category;
 
@@ -79,12 +80,12 @@ public class CategoryDaoJDBC implements CategoryDao {
 		PreparedStatement st = null;
 		
 		try {
-			st = conn.prepareStatement("DELETE FORM category WHERE Id = ?");
+			st = conn.prepareStatement("DELETE FROM category WHERE Id = ?");
 			st.setInt(1, id);
 			st.executeUpdate();
 			
 		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
+			throw new DbIntegrityException(e.getMessage());
 		} finally {
 			DB.closeStatement(st);
 		}
@@ -131,7 +132,7 @@ public class CategoryDaoJDBC implements CategoryDao {
 		List<Category> categoriesList = new ArrayList<>();
 		
 		try {
-			st = conn.prepareStatement("SELECT * FROM category");
+			st = conn.prepareStatement("SELECT * FROM category ORDER BY Id");
 			
 			rs = st.executeQuery();
 			while (rs.next()) {

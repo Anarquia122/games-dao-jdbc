@@ -12,6 +12,7 @@ import java.util.Map;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.GamesDao;
 import model.entities.Category;
 import model.entities.Games;
@@ -94,7 +95,7 @@ public class GamesDaoJDBC implements GamesDao {
 			st.setInt(1, id);
 			st.executeUpdate();
 		} catch (SQLException e) {
-			throw new DbException(e.getMessage());
+			throw new DbIntegrityException(e.getMessage());
 		} finally {
 			DB.closeStatement(st);
 		}
@@ -160,6 +161,7 @@ public class GamesDaoJDBC implements GamesDao {
 					"SELECT games.*, category.Name AS CatName "
 					+ "FROM games INNER JOIN category "
 					+ "ON games.CategoryId = category.id "
+					+ "ORDER BY games.Id"
 					);
 			
 			rs = st.executeQuery();
